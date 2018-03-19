@@ -2,7 +2,8 @@
 package nats
 
 import (
-	"github.com/golang/protobuf/proto"
+	"encoding/json"
+
 	"github.com/mainflux/mainflux"
 	broker "github.com/nats-io/go-nats"
 )
@@ -21,7 +22,7 @@ func NewMessagePublisher(nc *broker.Conn) mainflux.MessagePublisher {
 }
 
 func (pub *natsPublisher) Publish(msg mainflux.RawMessage) error {
-	data, err := proto.Marshal(&msg)
+	data, err := json.Marshal(msg)
 	if err != nil {
 		return err
 	}

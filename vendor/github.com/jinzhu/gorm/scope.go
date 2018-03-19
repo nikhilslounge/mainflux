@@ -650,7 +650,7 @@ func (scope *Scope) buildCondition(clause map[string]interface{}, include bool) 
 	buff := bytes.NewBuffer([]byte{})
 	i := 0
 	for _, s := range str {
-		if s == '?' && len(replacements) > i {
+		if s == '?' {
 			buff.WriteString(replacements[i])
 			i++
 		} else {

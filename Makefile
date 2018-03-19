@@ -1,6 +1,6 @@
 BUILD_DIR=build
 SERVICES=manager http normalizer coap
-DOCKERS=$(addprefix docker_,$(SERVICES))
+DOCKERS=$(addprefix docker_,$(SERVICES)) 
 
 all: $(SERVICES)
 .PHONY: all $(SERVICES) docker
@@ -13,19 +13,16 @@ define make_docker
 	docker build --build-arg SVC_NAME=$(subst docker_,,$(1)) --tag=mainflux/$(subst docker_,,$(1)) -f docker/Dockerfile .
 endef
 
-proto:
-	protoc --go_out=. *.proto
-
-manager: proto
+manager:
 	$(call compile_service,$(@))
 
-http: proto
+http:
 	$(call compile_service,$(@))
 
-normalizer: proto
+normalizer:
 	$(call compile_service,$(@))
 
-coap: proto
+coap:
 	$(call compile_service,$(@))
 
 clean:
@@ -48,3 +45,4 @@ docker_coap:
 	$(call make_docker,$(@))
 
 docker: $(DOCKERS)
+
